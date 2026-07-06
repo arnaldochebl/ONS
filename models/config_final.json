@@ -1,0 +1,70 @@
+{
+ "params": {
+  "num_leaves": 63,
+  "learning_rate": 0.03,
+  "min_child_samples": 200,
+  "feature_fraction": 0.75,
+  "bagging_fraction": 0.7,
+  "bagging_freq": 1,
+  "lambda_l2": 0.0
+ },
+ "features": [
+  "lag_1h",
+  "lag_2h",
+  "lag_3h",
+  "lag_4h",
+  "lag_5h",
+  "lag_6h",
+  "lag_24h",
+  "lag_48h",
+  "lag_168h",
+  "lag_336h",
+  "carga_origem",
+  "media_24h",
+  "min_24h",
+  "max_24h",
+  "desvio_24h",
+  "media_168h",
+  "var_1h",
+  "var_24h",
+  "var_168h",
+  "horizonte",
+  "ref_ontem_mesma_hora",
+  "ref_semana_mesma_hora",
+  "hora_alvo",
+  "dow_alvo",
+  "mes_alvo",
+  "fim_de_semana",
+  "hora_sin",
+  "hora_cos",
+  "doy_sin",
+  "doy_cos",
+  "e_feriado",
+  "vespera_feriado",
+  "pos_feriado",
+  "nome_feriado"
+ ],
+ "nomes_feriados_top": [
+  "Universal Fraternization Day",
+  "Good Friday",
+  "Tiradentes' Day",
+  "Worker's Day",
+  "Independence Day",
+  "Our Lady of Aparecida",
+  "All Souls' Day",
+  "Republic Proclamation Day"
+ ],
+ "quantis": {
+  "p10": {
+   "best_iteration": 341
+  },
+  "p50": {
+   "best_iteration": 627
+  },
+  "p90": {
+   "best_iteration": 296
+  }
+ },
+ "holdout_inicio": "2026-01-01",
+ "conformal": true
+}

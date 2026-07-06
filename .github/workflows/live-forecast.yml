@@ -1,0 +1,45 @@
+# Ciclo "vivo" do modelo: toda segunda-feira baixa o dado mais recente do
+# ONS, registra a previsão das próximas 24h e reconcilia o track record
+# público. Roda de graça no Actions (repo público); o commit dispara o
+# deploy do Pages e a página atualiza sozinha.
+name: Previsão semanal ao vivo
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"   # segundas, 12:00 UTC (09:00 BRT)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-forecast
+  cancel-in-progress: false
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Dependências
+        run: pip install -r requirements.txt
+
+      - name: Gerar previsão e reconciliar track record
+        run: python src/score_live.py
+
+      - name: Commit dos artefatos ao vivo
+        run: |
+          git config user.name "modelo-ao-vivo[bot]"
+          git config user.email "actions@github.com"
+          git add docs/live/
+          git diff --cached --quiet && echo "nada novo" && exit 0
+          git commit -m "live: previsão semanal e track record [skip lint]"
+          git push
